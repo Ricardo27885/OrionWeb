@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-between mb-2">
+    <!-- Input para filtrar -->
+    <input type="text" class="form-control w-25" placeholder="Buscar..." [(ngModel)]="searchTerm" (input)="applyFilter()">
+  </div>
+  
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th *ngFor="let column of columns">{{ column }}</th>
+        <th>Acciones</th> <!-- Columna extra para el botón de editar -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of paginatedData">
+        <td *ngFor="let column of columns">{{ item[column] }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="editFunction(item)">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+
+  

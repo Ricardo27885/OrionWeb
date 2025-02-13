@@ -1,0 +1,53 @@
+<div *ngIf="!esLoginPage" class="container mt-4">
+    <!-- Botón de agregar alineado a la derecha -->
+    <div class="d-flex justify-content-end mb-3">
+      <button class="btn btn-success" (click)="openModal('add')">Agregar</button>
+    </div>
+  
+    <!-- Tabla de Kekos -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th *ngFor="let column of columns">{{ column }}</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of paginatedData">
+          <td *ngFor="let column of columns">{{ item[column] }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="openModal('edit', item)">
+              <i class="fa-regular fa-pen-to-square"></i> Editar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Modal de agregar/editar -->
+    <div *ngIf="isModalOpen" class="modal-backdrop" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()"> <!-- Evita que se cierre al hacer clic dentro del modal -->
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEdit ? 'Editar Keko' : 'Agregar Keko' }}</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="kekoName">Nombre</label>
+            <input id="kekoName" type="text" [(ngModel)]="nombre" class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="saveKeko()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center g-2 m-3">
+      <button class="btn btn-secondary mx-2" (click)="goToPreviousPage()">Anterior</button>
+      <button class="btn btn-secondary mx-2" (click)="goToNextPage()">Siguiente</button>
+    </div>
