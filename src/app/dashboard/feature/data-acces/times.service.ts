@@ -6,7 +6,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class TimesService {
-  private apiUrl = 'http://localhost:8000/api'; // URL de tu API
+  private apiUrl = 'https://dockerapi-1yw3.onrender.com/api'; // URL de tu API
 
   constructor(private http: HttpClient) { }
 

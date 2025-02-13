@@ -63,7 +63,7 @@ getProfile() {
   const token = localStorage.getItem('authToken');
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-  return this._http.get('http://localhost:8000/api/profile', { headers });
+  return this._http.get('https://dockerapi-1yw3.onrender.com/api/profile', { headers });
 }
   
 

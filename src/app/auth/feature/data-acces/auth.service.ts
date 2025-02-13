@@ -9,7 +9,7 @@ import { catchError, Observable } from 'rxjs';
 })
 export  class AuthService {
 
-  private apiUrl = 'http://localhost:8000/api' // Asegúrate de que sea la URL correcta de tu API
+  private apiUrl = 'https://dockerapi-1yw3.onrender.com/api' // Asegúrate de que sea la URL correcta de tu API
 
   private tokenKey = 'authToken';
   constructor(private http: HttpClient, private router: Router) {

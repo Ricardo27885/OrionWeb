@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MembershipService {
-  private apiUrl = 'http://localhost:8000/api'; // URL del backend
+  private apiUrl = 'https://dockerapi-1yw3.onrender.com/api'; // URL del backend
 
   constructor(private http: HttpClient) {}
 

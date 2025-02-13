@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class KekosService {
   
-  private apiUrl = 'http://localhost:8000/api'; // Cambia si usas otro puerto o dominio
+  private apiUrl = 'https://dockerapi-1yw3.onrender.com/api'; // Cambia si usas otro puerto o dominio
 
   constructor(private http: HttpClient) { }
 
