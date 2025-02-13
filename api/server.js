@@ -33,7 +33,7 @@ app.use("/api", membershipRoutes);
 
 const PORT = 10000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor activo en: http://0.0.0.0:${PORT}`);
+  console.log(`Servidor activo en: http://44.227.217.144:${PORT}`);
 });
 
 
