@@ -31,7 +31,7 @@ app.use("/api", membershipRoutes);
 //   console.log(`Servidor activo en: http://localhost:${PORT}`);
 // });
 
-const PORT = 10000;
+const PORT = 8000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor activo en: http://44.227.217.144:${PORT}`);
 });
