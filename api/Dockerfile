@@ -1,8 +1,8 @@
 # Usar imagen base de Node.js con Alpine (versión LTS)
-FROM node:18-alpine
+FROM node:18
 
 # Establecer directorio de trabajo dentro del contenedor
-WORKDIR /api
+WORKDIR /app
 
 # 1. Copiar archivos de dependencias primero para aprovechar caché de Docker
 COPY package*.json ./
@@ -14,8 +14,8 @@ RUN npm install
 COPY . .
 
 
-# Exponer el puerto de la aplicación (mismo que en tu server.js)
-EXPOSE 8000
-
 # Comando para iniciar la aplicación
 CMD ["node", "server.js"]
+
+# Exponer el puerto de la aplicación (mismo que en tu server.js)
+EXPOSE 8000
