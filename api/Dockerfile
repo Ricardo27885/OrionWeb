@@ -13,7 +13,7 @@ RUN npm install
 # 3. Copiar todo el código fuente de la aplicación
 COPY . .
 
-RUN npm run build
+
 # Exponer el puerto de la aplicación (mismo que en tu server.js)
 EXPOSE 8000
 
