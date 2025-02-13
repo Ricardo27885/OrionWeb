@@ -4,7 +4,7 @@ const { createOrUpdateMembresia, getAllMembresia, getMembresiaId } = require("..
 const verifyToken = require("../middlewares/authMiddleware");
 
 router.post("/membership", createOrUpdateMembresia); // Endpoint para insertar o actualizar
-router.get('/membership', verifyToken, getAllMembresia);
+router.get('/membership', getAllMembresia);
 router.get('/membership/:id', getMembresiaId);
 
 module.exports = router;

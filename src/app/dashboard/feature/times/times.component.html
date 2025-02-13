@@ -1,8 +1,8 @@
 <div class="mt-4 m-3">
     <mat-tab-group>
-        <mat-tab label="First"> 
+        <mat-tab label="Tomar Time"> 
           <div class="container mt-5">
-            <h2>Formulario de Entrada</h2>
+            <h2>Agregar Time</h2>
             <form (submit)="guardarDatos()">
               <div class="mb-3">
 
@@ -45,7 +45,7 @@
             </form>
           </div>
         </mat-tab>
-        <mat-tab label="Second"> 
+        <mat-tab label="Times"> 
           <div class="container mt-4">
             <div class="d-flex">
               <div class="col-6">
@@ -96,7 +96,7 @@
                                 Finalizar
                               </button>
                               <button class="btn btn-info" (click)="updateTimes(tiempoId.IDCabecera, detalleId.IDDetalle)" [disabled]="areButtonsDisabled(detalleId).newButtonDisabled">
-                                <i class="fas fa-plus"></i> Actualizar Tiempo
+                                <i class="fas fa-plus"></i> Sumar +5
                               </button>
                             </td>
                           </tr>
@@ -154,7 +154,7 @@
           </div>
           
         </mat-tab>
-        <mat-tab label="Third"> 
+        <mat-tab label="Membresías"> 
        
           <div class="container mt-4">
             <!-- Tabla de Membresías -->
