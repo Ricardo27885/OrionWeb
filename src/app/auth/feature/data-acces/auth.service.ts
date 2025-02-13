@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
@@ -12,7 +12,9 @@ export  class AuthService {
   private apiUrl = 'http://localhost:8000/api' // Asegúrate de que sea la URL correcta de tu API
 
   private tokenKey = 'authToken';
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+
+  }
 
   login(username: string, password: string): Observable<any> {
     const body = { username, password }; // Cuerpo de la solicitud con las credenciales
@@ -78,6 +80,8 @@ export  class AuthService {
     const decodedToken = this.decodeToken();
     return decodedToken?.idUsuario || null;
   }
+
+  
 
 }
 

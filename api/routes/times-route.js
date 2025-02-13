@@ -9,7 +9,7 @@ router.get("/time/:idUsuario", timeController.getByUsuario);
 router.post('/time/iniciar', timeController.iniciarDetalles);
 router.delete('/time/cancelar/:idDetalle/:idCabecera', timeController.cancelarDetalles);
 router.put('/time/finalizar/:idDetalle/:idCabecera', timeController.finalizarDetalles);
-router.get('/time/ultimoHoraFin/:idCabecera', timeController.obtenerUltimoHoraFin);
+router.get('/time/ultimoHoraFin/:idCabecera', verifyToken, timeController.obtenerUltimoHoraFin);
 router.put('/time/actualizar/:idDetalle/:idCabecera', timeController.actualizarTiemposController);
 
 

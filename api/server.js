@@ -7,6 +7,7 @@ const KekoRoutes = require('./routes/kekos-route');
 const timeRoutes = require("./routes/times-route");
 const membershipRoutes = require("./routes/membership-route");
 
+
 const app = express();
 
 // Habilitar CORS para permitir acceso desde cualquier origen
@@ -22,6 +23,7 @@ app.use("/api", userRoutes);
 app.use('/api/kekos', KekoRoutes);
 app.use("/api", timeRoutes);
 app.use("/api", membershipRoutes);
+
 
 // Configurar puerto
 const PORT = process.env.PORT || 8000;
