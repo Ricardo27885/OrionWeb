@@ -6,6 +6,7 @@ const userRoutes = require("./routes/user-route");
 const KekoRoutes = require('./routes/kekos-route');
 const timeRoutes = require("./routes/times-route");
 const membershipRoutes = require("./routes/membership-route");
+const verifyToken = require("./middlewares/authMiddleware");
 
 
 const app = express();
@@ -19,10 +20,10 @@ app.use(express.json());
 
 // Rutas
 app.use("/api", authRoutes);
-app.use("/api", userRoutes);
-app.use('/api/kekos', KekoRoutes);
-app.use("/api", timeRoutes);
-app.use("/api", membershipRoutes);
+app.use("/api", verifyToken, userRoutes);
+app.use('/api/kekos', verifyToken, KekoRoutes);
+app.use("/api", verifyToken, timeRoutes);
+app.use("/api", verifyToken, membershipRoutes);
 
 
 // Configurar puerto
