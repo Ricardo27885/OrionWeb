@@ -5,11 +5,5 @@ const verifyToken = require('../middlewares/authMiddleware');
 
 router.post("/signIn", signIn);
 
-router.get('/profile', verifyToken, (req, res) => {
-    res.json({
-        message: 'Acceso a perfil autorizado',
-        user: req.user // Información del usuario del token
-    });
-});
-
+router.get("/protegido", verifyToken)
 module.exports = router;
