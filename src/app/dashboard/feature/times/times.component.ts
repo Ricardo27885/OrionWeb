@@ -108,7 +108,7 @@ export default class TimesComponent {
       },
       error: (error) => {
         this.toastr.error('Error al guardar el registro', 'Error');
-        console.error('Error al guardar', error);
+     
       }
     });
   }
@@ -116,7 +116,6 @@ export default class TimesComponent {
   obtenerTiempos(idUsuario: number) {
     this._timeService.getAllTiempos(idUsuario).subscribe(data => {
       this.tiempos = data;
-      console.log(data);
     });
   }
 
@@ -199,7 +198,6 @@ export default class TimesComponent {
         this._timeService.iniciarDetalle(IDCabecera, detalle.Descripcion, horaInicio)
           .subscribe({
             next: (iniciarRes) => {
-              console.log('Detalle iniciado:', iniciarRes);
               if (this.idUsuario !== undefined) {
                 this.getTiempos(this.idUsuario);
                 this.obtenerTiempos(this.idUsuario); // Actualiza los tiempos si es necesario
@@ -222,7 +220,6 @@ export default class TimesComponent {
       this._timeService.cancelarDetalle(detalle.IDDetalle, IDCabecera)
         .subscribe({
           next: (res) => {
-            console.log('Detalle cancelado:', res);
             if (id !== undefined) {
               this.getTiempos(id);
               this.obtenerTiempos(id);
@@ -242,8 +239,6 @@ export default class TimesComponent {
       this._timeService.finalizarDetalle(detalle.IDDetalle, IDCabecera)
         .subscribe({
           next: (res) => {
-            // detalle.HoraFin = new Date().toISOString().slice(11, 16);
-            console.log('Detalle finalizado:', res);
             if (id !== undefined) {
               this.getTiempos(id);
               this.obtenerTiempos(id);
@@ -342,12 +337,16 @@ export default class TimesComponent {
    
       // Si tiene un ID, significa que es una actualización
       this._membershipService.guardarMembresia(this.selectedMembresia).subscribe(() => {
+        this.toastr.success('Actualizados correctamente', 'Éxito');
+        this.selectedMembresia = {}; 
         this.getMembresias(); // Refrescar la lista de membresías
        // Limpiar el formulario
       });
     } else {
       // Si no tiene ID, es una nueva membresía
       this._membershipService.guardarMembresia(this.selectedMembresia).subscribe(() => {
+        this.toastr.success('Agregado correctamente', 'Éxito');
+        this.selectedMembresia = {}; 
         this.getMembresias(); // Refrescar la lista de membresías
         // Limpiar el formulario
       });

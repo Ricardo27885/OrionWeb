@@ -1,7 +1,6 @@
 const { sql, poolPromise } = require("../config/db.config");
 
 async function insertOrUpdateMembresia(id, idKeko, tipo, fecha_inicio) {
-    console.log(id)
     try {
         const pool = await poolPromise;
         const result = await pool.request()

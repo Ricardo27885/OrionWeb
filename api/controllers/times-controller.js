@@ -18,7 +18,7 @@ async function createTime(req, res) {
             return res.status(400).json({ error: "Faltan datos obligatorios (idKeko o idUsuario)." });
         }
 
-        console.log("Datos recibidos:", req.body);
+
 
         // 🔹 Insertar la cabecera
         const resultado = await insertCabecera(idKeko, idUsuario);

@@ -3,7 +3,6 @@ const { insertOrUpdateMembresia, getAllMembresias, getMembresiaById } = require(
 async function createOrUpdateMembresia(req, res) {
     try {
         const { id, idKeko, tipo, fecha_inicio } = req.body;
-        console.log(req.body)
 
         if (!idKeko || !tipo || !fecha_inicio) {
             return res.status(400).json({ error: "Todos los campos son obligatorios" });

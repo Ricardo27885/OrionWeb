@@ -4,6 +4,7 @@ import { UsersService } from '../data-acces/users.service';
 import { AuthService } from '../../../auth/feature/data-acces/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +24,7 @@ export default class AdminComponent {
   idUsuario: number | undefined;
 
   users: User[] = [];
-  constructor(private _userService: UsersService,    private _auth: AuthService) {}
+  constructor(private _userService: UsersService,    private _auth: AuthService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getUsers(); // Obtener todos los usuarios al iniciar el componente
@@ -48,12 +49,16 @@ export default class AdminComponent {
     }
     this._userService.createUser(this.user).subscribe(
       (response) => {
-        console.log('Usuario creado exitosamente', response);
-        this.getUsers()
+        this.toastr.success(
+          this.user.idUsuario ? 'Actualizados correctamente' : 'Agregado correctamente',
+          'Éxito'
+        );
+        this.resetForm();
+        this.getUsers();
         // Aquí puedes agregar lógica para redirigir o mostrar un mensaje
       },
       (error) => {
-        console.error('Error al crear usuario', error);
+        this.toastr.error(this.user.idUsuario ? 'Error al Actualizar ' : 'Error Agregado', 'Error');
       }
     );
   }

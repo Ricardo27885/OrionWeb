@@ -60,7 +60,6 @@ class KekoModel {
                 .input('nombre', sql.VarChar, nombre) // Parámetro de entrada para evitar inyecciones SQL
                 .query('INSERT INTO Kekos (nombre) VALUES (@nombre)');
     
-            console.log('Keko creado exitosamente');
         } catch (error) {
             console.error("Error al crear Keko:", error);
             throw new Error("Error al crear Keko");

@@ -3,7 +3,6 @@ const { loginUser } = require("../models/auth-model");
 async function signIn(req, res) {
   try {
     const { username, password } = req.body;
-    console.log(req.body)
     const result = await loginUser(username, password);
     res.json(result);
   } catch (error) {

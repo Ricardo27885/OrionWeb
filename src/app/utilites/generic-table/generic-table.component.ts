@@ -15,15 +15,7 @@ export class GenericTableComponent {
  @ViewChild(ModalAgregarKekoComponent) modalAgregarKeko!: ModalAgregarKekoComponent;
 
   
-ngAfterViewInit() {
-  setTimeout(() => {
-    if (!this.modalAgregarKeko) {
-      console.error('❌ No se encontró el modal en ViewChild');
-    } else {
-      console.log('✅ Modal encontrado:', this.modalAgregarKeko);
-    }
-  });
-}
+
 
   @Input() columns: string[] = []; // Recibe los nombres de las columnas
   @Input() data: any[] = [];       // Recibe los datos a mostrar

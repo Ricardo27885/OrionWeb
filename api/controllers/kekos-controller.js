@@ -46,7 +46,6 @@ class KekoController {
     static async create(req, res) {
         try {
             const { nombre } = req.body;
-            console.log(nombre)
             if (!nombre) {
                 return res.status(400).json({ message: 'El nombre es requerido' });
             }
