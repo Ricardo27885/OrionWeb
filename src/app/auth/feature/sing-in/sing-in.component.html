@@ -1,47 +1,52 @@
 <div class="container-fluid">
-    <div class="row main-content bg-success text-center">
-        <div class="col-md-4 text-center company__info">
-            <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
-            <h4 class="company_title">Imperio Orion</h4>
-        </div>
-        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
-            <div class="container-fluid">
-                <div class="row">
-                    <h2>Log In</h2>
-                </div>
-                <div class="row">
-                    <form [formGroup]="onloginForm" (ngSubmit)="onLogin()">
-                        <div class="row">
-                          <input
-                            type="text"
-                            formControlName="username"
-                            name="username"
-                            id="username"
-                            class="form__input"
-                            placeholder="Username"
-                            required
-                          />
-                        </div>
-                        <div class="row">
-                          <input
-                            type="password"
-                            formControlName="password"
-                            name="password"
-                            id="password"
-                            class="form__input"
-                            placeholder="Password"
-                            required
-                          />
-                        </div>
-                        <div class="mb-3 text-center">
-                          <button type="submit" class="btn" >Submit</button>
-                        </div>
-                      </form>
-                </div>    
-            </div>
-        </div>
+  <div class="row main-content bg-success text-center">
+    <div class="col-md-4 text-center company__info">
+      <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+      <h4 class="company_title">Your Company Logo</h4>
     </div>
+    <div class="col-md-8 col-xs-12 col-sm-12 login_form">
+      <div class="container-fluid">
+        <div class="row">
+          <h2>Log In</h2>
+        </div>
+        
+        <!-- Nota de visitante -->
+        <div class="alert alert-info mt-3" role="alert">
+          <strong>Nota:</strong> Si eres visitante, puedes acceder con el siguiente usuario y contraseña:<br>
+          <strong>Usuario:</strong> visitante<br>
+          <strong>Contraseña:</strong> Visita
+        </div>
+
+        <div class="row">
+          <form [formGroup]="onloginForm" (ngSubmit)="onLogin()">
+            <div class="row">
+              <input
+                type="text"
+                formControlName="username"
+                name="username"
+                id="username"
+                class="form__input"
+                placeholder="Username"
+                required
+              />
+            </div>
+            <div class="row">
+              <input
+                type="password"
+                formControlName="password"
+                name="password"
+                id="password"
+                class="form__input"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <div class="mb-3 text-center">
+              <button type="submit" class="btn">Submit</button>
+            </div>
+          </form>
+        </div>    
+      </div>
+    </div>
+  </div>
 </div>
-
-
-

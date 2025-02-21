@@ -4,7 +4,7 @@ const timeController = require("../controllers/times-controller");
 const verifyToken = require("../middlewares/authMiddleware"); // Middleware para JWT
 
 router.post("/time", timeController.createTime);
-router.get("/time", timeController.getAll);
+router.get("/time/all/:idUsuario", timeController.getAll);
 router.get("/time/:idUsuario", timeController.getByUsuario);
 router.post('/time/iniciar', timeController.iniciarDetalles);
 router.delete('/time/cancelar/:idDetalle/:idCabecera', timeController.cancelarDetalles);

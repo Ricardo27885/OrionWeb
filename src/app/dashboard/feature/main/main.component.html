@@ -1,7 +1,7 @@
 <div *ngIf="!esLoginPage" class="container mt-4">
     <!-- Botón de agregar alineado a la derecha -->
     <div class="d-flex justify-content-end mb-3">
-      <button class="btn btn-success" (click)="openModal('add')">Agregar</button>
+      <button [disabled]="isVisitor()" class="btn btn-success" (click)="openModal('add')">Agregar</button>
     </div>
   
     <!-- Tabla de Kekos -->
@@ -41,7 +41,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="saveKeko()">Guardar</button>
+          <button [disabled]="isVisitor()"  type="button" class="btn btn-primary" (click)="saveKeko()">Guardar</button>
         </div>
       </div>
     </div>

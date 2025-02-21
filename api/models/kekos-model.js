@@ -47,6 +47,14 @@ class KekoModel {
     static async create(nombre) {
         try {
             const pool = await poolPromise;
+                // Verificar si el nombre ya existe en la base de datos
+                const result = await pool.request()
+                .input('nombre', sql.VarChar, nombre)
+                .query('SELECT COUNT(*) AS count FROM Kekos WHERE nombre = @nombre');
+
+            if (result.recordset[0].count > 0) {
+                throw new Error(`El nombre "${nombre}" ya existe en la base de datos`);
+            }
             // Ejecutamos la consulta de inserción sin devolver nada
             await pool.request()
                 .input('nombre', sql.VarChar, nombre) // Parámetro de entrada para evitar inyecciones SQL

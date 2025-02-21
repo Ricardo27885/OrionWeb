@@ -41,7 +41,7 @@
                 <label for="input3" class="form-label">Hora</label>
                 <input type="time" class="form-control" id="input3" [(ngModel)]="currentDateTime" [ngModelOptions]="{standalone: true}" [disabled]="true">
                 </div>
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button [disabled]="isVisitor()" type="submit" class="btn btn-primary">Guardar</button>
             </form>
           </div>
         </mat-tab>
@@ -50,7 +50,7 @@
             <div class="d-flex">
               <div class="col-6">
                 <div class="container mt-4">
-                  <h2 class="text-center">Tiempos de Hoy Propios</h2>
+                  <h2 class="text-center">Mis Tiempos</h2>
           
                   <div *ngFor="let tiempoId of tiemposbyId" class="card mb-2">
                     <div class="card-header d-flex align-items-center">
@@ -77,7 +77,7 @@
                           <tr *ngFor="let detalleId of tiempoId.Detalles; let i = index">
                             <td><input [(ngModel)]="detalleId.Descripcion" class="form-control" /></td>
                             <td><input type="time" [(ngModel)]="detalleId.HoraInicio" class="form-control" /></td>
-                            <td>{{ detalleId.HoraFin | date:'HH:mm':'UTC'   }}</td>
+                            <td>{{ detalleId.HoraFin | date:'hh:mm a':'UTC'  }}</td>
                             <td>{{ detalleId.EstadoTiempo }}</td>
                             <td>
                               <button class="btn btn-success" 
@@ -115,7 +115,7 @@
           
               <div class="col-6">
                 <div class="container mt-4">
-                  <h2 class="text-center">Tiempos de Hoy</h2>
+                  <h2 class="text-center">Tiempos de otros</h2>
           
                   <div *ngFor="let tiempo of tiempos" class="card mb-2">
                     <div class="card-header d-flex align-items-center">
@@ -140,8 +140,8 @@
                         <tbody>
                           <tr *ngFor="let detalle of tiempo.Detalles">
                             <td>{{ detalle.Descripcion }}</td>
-                            <td>{{ detalle.HoraInicio  | date:'HH:mm':'UTC'  }}</td>
-                            <td>{{ detalle.HoraFin  | date:'HH:mm':'UTC'  }}</td>
+                            <td>{{ detalle.HoraInicio | date:'hh:mm a':'UTC'  }}</td>
+                            <td>{{ detalle.HoraFin  | date:'hh:mm a':'UTC'   }}</td>
                             <td>{{ detalle.EstadoTiempo }}</td>
                           </tr>
                         </tbody>
@@ -177,7 +177,7 @@
                   <td>{{ membresia.fecha_inicio | date: 'yyyy-MM-dd':'UTC' }}</td>
                   <td>{{ membresia.fecha_fin | date: 'yyyy-MM-dd':'UTC' }}</td>
                   <td>
-                    <button class="btn btn-warning" (click)="onEdit(membresia)">Editar</button>
+                    <button [disabled]="isVisitor()" class="btn btn-warning" (click)="onEdit(membresia)">Editar</button>
                   </td>
                 </tr>
               </tbody>
@@ -218,7 +218,7 @@
                     [value]="selectedMembresia.fecha_inicio | date: 'yyyy-MM-dd'" />
                 </div>
           
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button [disabled]="isVisitor()" type="submit" class="btn btn-primary">Guardar</button>
               </form>
             </div>
           </div>

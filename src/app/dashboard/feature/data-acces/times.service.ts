@@ -15,9 +15,8 @@ export class TimesService {
     return this.http.post<any>(`${this.apiUrl}/time`, body);
   }
 
- 
-  getAllTiempos(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/time`).pipe(
+  getAllTiempos(idUsuario: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/time/all/${idUsuario}`).pipe(
       map(response => {
         const agrupados: { [key: number]: any } = {};
         

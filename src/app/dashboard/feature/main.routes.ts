@@ -12,6 +12,11 @@ export default [
           
             path: 'times',
             loadComponent: () => import('./times/times.component')
+        },
+        {
+          
+            path: 'admin',
+            loadComponent: () => import('./admin/admin.component')
         }
           
     

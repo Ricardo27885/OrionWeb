@@ -1,37 +1,28 @@
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" *ngIf="!esLoginPage">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Orion</a>
-  
-      <!-- Botón de toggler para pantallas pequeñas -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Menú colapsable -->
-      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
-        <!-- Contenedor del menú centrado -->
-        <div class="navbar-nav mx-auto d-flex justify-content-center w-100">
-          <a class="nav-link" [routerLink]="'/api/main/usuarios'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Kekos</a>
-          <a class="nav-link" [routerLink]="'/api/main/times'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Times</a>
-          <a class="nav-link" href="#">Admin</a>
-        </div>
-  
-        <!-- Botón de cerrar sesión en pantallas grandes -->
-        <button class="btn btn-danger ms-auto d-none d-lg-block btn-sm" (click)="cerrarSesion()">Cerrar Sesión</button>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" *ngIf="!esLoginPage">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+
+    <!-- Botón de toggler para pantallas pequeñas -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú colapsable -->
+    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+      <!-- Contenedor del menú centrado -->
+      <div class="navbar-nav mx-auto d-flex justify-content-center w-100">
+        <a class="nav-link" [routerLink]="'/api/main/usuarios'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Kekos</a>
+        <a class="nav-link" [routerLink]="'/api/main/times'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Times</a>
+        <a class="nav-link" [routerLink]="'/api/main/admin'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Admin</a>
       </div>
-  
-      <!-- Botón de cerrar sesión en pantallas pequeñas -->
-      <button class="btn btn-danger d-lg-none btn-sm">Cerrar Sesión</button>
+
+      <!-- Botón de cerrar sesión en pantallas grandes -->
+      <button class="btn btn-danger ms-auto d-none d-lg-block btn-sm" (click)="cerrarSesion()">Cerrar Sesión</button>
+      <button class="btn btn-danger d-lg-none btn-sm" (click)="cerrarSesion()">Cerrar Sesión</button>
     </div>
-  </nav>
-
-
-  
-  
- <!-- Botón para agregar -->
-
-  
+  </div>
+</nav>
 
 <router-outlet /> <ngx-sonner-toaster/>

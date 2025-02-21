@@ -58,16 +58,15 @@ async function insertDetalle(idCabecera) {
 
 
     // Obtener todos los tiempos de hoy
-    async function getAllTiempos() {
-      try {
-        const pool = await poolPromise;
-        const result = await pool.request().execute("Sp_GetAllTiempos");
-        return result.recordset;
-      } catch (error) {
-        throw error;
+    async function getAllTiempos(idUsuario) {
+        try {
+          const pool = await poolPromise;
+          const result = await pool.request().input('idUsuario', idUsuario).execute("Sp_GetAllTiempos");
+          return result.recordset;
+        } catch (error) {
+          throw error;
+        }
       }
-    }
-
     async function getTiemposByUsuario(idUsuario) {
         try {
           const pool = await poolPromise;

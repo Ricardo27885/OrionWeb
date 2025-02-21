@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { KekosService } from '../data-acces/kekos.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../auth/feature/data-acces/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -24,19 +25,27 @@ export default class MainComponent {
     currentItem: any;
     isModalOpen: boolean = false;  // Control del estado del modal
     idToEdit: any;
+    idUsuario: number | undefined;
     
   
     constructor(
       private router: Router,
-      private _kekosService: KekosService
+      private _kekosService: KekosService,
+      private _auth: AuthService
     ) {
       this.router.events.subscribe(() => {
         this.esLoginPage = this.router.url === '/api/signIn';
       });
-  
+      this.idUsuario = Number(this._auth.getUserId());
       // Llamar al servicio para obtener los Kekos
       this.loadKekos();
     }
+
+    
+    isVisitor(): boolean {
+      return this.idUsuario === 6; // Comparar como número
+    }
+
   
     loadKekos() {
       this._kekosService.getKekos().subscribe((data) => {
@@ -75,7 +84,9 @@ export default class MainComponent {
       if (this.isEdit) {
         // Si es edición, obtenemos los datos del Keko por su ID
         this.idToEdit = item.idKeko;  // Asignamos el ID del Keko que queremos editar
-  
+        if (this.idUsuario === 6 ) {
+          return; // No hacer nada si el botón está deshabilitado
+        }
         // Llamada al servicio para obtener el Keko por ID
         this._kekosService.getKekoById(this.idToEdit).subscribe(
           (kekoData) => {
@@ -98,6 +109,9 @@ export default class MainComponent {
     }
   
     saveKeko() {
+      if (this.idUsuario === 6 ) {
+        return; // No hacer nada si el botón está deshabilitado
+      }
       if (this.isEdit) {
         // Si estamos editando, actualizamos el "Keko"
         this.currentItem.nombre = this.nombre;  // Asegúrate de usar `kekoName` como la variable que contiene el nombre

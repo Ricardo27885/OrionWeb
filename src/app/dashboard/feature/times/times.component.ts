@@ -48,24 +48,18 @@ export default class TimesComponent {
     this.username = this._auth.getUserName() || 'Usuario Desconocido';
     this.idUsuario = Number(this._auth.getUserId());
     this.setCurrentTime();
-    this.obtenerTiempos();
+    this.obtenerTiempos(this.idUsuario);
     this.getTiempos(this.idUsuario);
     this.getMembresias();
     this.getKekos(); 
  
   }
 
+  isVisitor(): boolean {
+    return this.idUsuario === 6; // Comparar como número
+  }
 
-
-  // setCurrentTime() {
-  //   setInterval(() => {
-  //     const now = new Date();
-  //     const hours = String(now.getHours()).padStart(2, '0');
-  //     const minutes = String(now.getMinutes()).padStart(2, '0');
-  //     this.currentDateTime = `${hours}:${minutes}`;
-  //   }, 1000); // Se actualiza cada segundo
-  // }
-
+  
   setCurrentTime() {
     setInterval(() => {
       const now = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
@@ -95,6 +89,9 @@ export default class TimesComponent {
   }
 
   guardarDatos() {
+    if (this.idUsuario === 6 ) {
+      return; // No hacer nada si el botón está deshabilitado
+    }
     if (!this.selectedKeko || !this.idUsuario) {
       this.toastr.warning('Debe seleccionar un Keko y estar autenticado', 'Advertencia');
       return;
@@ -106,8 +103,8 @@ export default class TimesComponent {
         this.searchTerm = '';
         if (this.idUsuario !== undefined) {
           this.getTiempos(this.idUsuario); // Actualiza los tiempos si es necesario
+          this.obtenerTiempos(this.idUsuario); // Actualiza los tiempos
         }
-        this.obtenerTiempos(); // Actualiza los tiempos
       },
       error: (error) => {
         this.toastr.error('Error al guardar el registro', 'Error');
@@ -116,12 +113,13 @@ export default class TimesComponent {
     });
   }
 
-  obtenerTiempos() {
-    this._timeService.getAllTiempos().subscribe(data => {
+  obtenerTiempos(idUsuario: number) {
+    this._timeService.getAllTiempos(idUsuario).subscribe(data => {
       this.tiempos = data;
       console.log(data);
     });
   }
+
 
   getTiempos(idUsuario: number): void {
     this._timeService.getTiemposByUsuario(idUsuario).subscribe(
@@ -133,7 +131,6 @@ export default class TimesComponent {
             HoraInicio: this.convertirHoraUTC(detalle.HoraInicio)
           }))
         }));
-        console.log(this.tiemposbyId);
       },
       (error) => {
         console.error('Error al obtener los tiempos:', error);
@@ -168,16 +165,6 @@ export default class TimesComponent {
 
     if (tiempo && tiempo.Detalles && tiempo.Detalles.length < 3) {
         const lastDetail = tiempo.Detalles.length > 0 ? tiempo.Detalles[tiempo.Detalles.length - 1] : null;
-
-
-        // const getLastHoraFin = () => {
-        //     if (lastDetail && lastDetail.HoraFin) {
-        //         return lastDetail.HoraFin; // Usa la HoraFin del último detalle
-        //     } else {
-        //         const now = new Date();
-        //         return now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0'); // Usa la hora actual si no hay HoraFin
-        //     }
-        // };
 
         const newDetail = {
             Descripcion: "",
@@ -214,9 +201,10 @@ export default class TimesComponent {
             next: (iniciarRes) => {
               console.log('Detalle iniciado:', iniciarRes);
               if (this.idUsuario !== undefined) {
-                this.getTiempos(this.idUsuario); // Actualiza los tiempos si es necesario
+                this.getTiempos(this.idUsuario);
+                this.obtenerTiempos(this.idUsuario); // Actualiza los tiempos si es necesario
               }
-              this.obtenerTiempos(); // Actualiza los tiempos
+              // Actualiza los tiempos
             },
             error: (iniciarErr) => console.error('Error al iniciar detalle:', iniciarErr)
           });
@@ -237,8 +225,9 @@ export default class TimesComponent {
             console.log('Detalle cancelado:', res);
             if (id !== undefined) {
               this.getTiempos(id);
+              this.obtenerTiempos(id);
             }
-            this.obtenerTiempos();
+            
           },
           error: (err) => console.error('Error al cancelar detalle:', err)
         });
@@ -257,8 +246,9 @@ export default class TimesComponent {
             console.log('Detalle finalizado:', res);
             if (id !== undefined) {
               this.getTiempos(id);
+              this.obtenerTiempos(id);
             }
-            this.obtenerTiempos();
+          
           },
           error: (err) => console.error('Error al finalizar detalle:', err)
         });
@@ -271,8 +261,9 @@ export default class TimesComponent {
         this.toastr.success('Tiempos actualizados correctamente', 'Éxito');
         if (this.idUsuario !== undefined) {
           this.getTiempos(this.idUsuario); // Actualiza los tiempos si es necesario
+          this.obtenerTiempos(this.idUsuario);
         }
-        this.obtenerTiempos();
+     
       },
       (error) => {
         console.error('Error al actualizar los tiempos', error);
@@ -286,6 +277,16 @@ export default class TimesComponent {
     const isFinalizado = detalle.EstadoTiempo === 'Finalizado';
     // Verificamos si el estado es "Iniciado"
     const isIniciado = detalle.EstadoTiempo === 'Iniciado';
+
+       // Si el rol es 'visitor', deshabilitamos todos los botones
+  if (this.idUsuario === 6) {
+    return {
+      startDisabled: true,
+      cancelDisabled: true,
+      finishDisabled: true,
+      newButtonDisabled: true
+    };
+  }
   
     return {
       startDisabled: isFinalizado || isIniciado, // Deshabilitar el botón "Start" si es Finalizado o si el estado es "Iniciado"
@@ -311,12 +312,13 @@ export default class TimesComponent {
   }
 
   onEdit(membresia: any) {
+    if (this.idUsuario === 6 ) {
+      return; // No hacer nada si el botón está deshabilitado
+    }
     // Copiar datos para editar
  
     this.selectedMembresia = { ...membresia };
- 
-   
-  
+
     // Asegúrate de que fecha_inicio esté en el formato adecuado para el input de fecha
     if (this.selectedMembresia && this.selectedMembresia.fecha_inicio) {
       this.selectedMembresia.fecha_inicio = this.formatDateForInput(this.selectedMembresia.fecha_inicio);
@@ -333,6 +335,9 @@ export default class TimesComponent {
   }
 
   onSave() {
+    if (this.idUsuario === 6 ) {
+      return; // No hacer nada si el botón está deshabilitado
+    }
     if (this.selectedMembresia.id) {
    
       // Si tiene un ID, significa que es una actualización

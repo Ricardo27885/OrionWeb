@@ -28,18 +28,21 @@ const getAllUsers = async (req, res) => {
     }
   };
 
-async function createUser(req, res) {
+  async function createUser(req, res) {
     try {
-      const { username, password, idRol, activo } = req.body;
+      const { idUsuario, username, password, idRol, activo } = req.body;
   
-      if (!username || !password || !idRol) {
+      if (!username || !idRol || !activo) {
         return res.status(400).json({ message: "Todos los campos son obligatorios" });
       }
   
       // Hashear la contraseña antes de guardarla
-      const hashedPassword = await bcrypt.hash(password, 10);
+      let hashedPassword = null;
+      if (password) {
+      hashedPassword = await bcrypt.hash(password, 10);
+      }
       
-      const success = await UserModel.createUser(username, hashedPassword, idRol, activo);
+      const success = await UserModel.createUser(idUsuario, username, hashedPassword, idRol, activo);
       
       if (success) {
         return res.status(201).json({ message: "Usuario creado exitosamente" });
@@ -52,28 +55,7 @@ async function createUser(req, res) {
     }
   }
   
-  async function updateUser(req, res) {
-    try {
-      const { idUsuario, username, password, idRol, activo } = req.body;
   
-      if (!idUsuario || !username || !password || !idRol || activo === undefined) {
-        return res.status(400).json({ message: "Todos los campos son obligatorios" });
-      }
   
-      // Hashear la nueva contraseña
-      const hashedPassword = await bcrypt.hash(password, 10);
   
-      const success = await UserModel.updateUser(idUsuario, username, hashedPassword, idRol, activo);
-  
-      if (success) {
-        return res.status(200).json({ message: "Usuario actualizado exitosamente" });
-      } else {
-        return res.status(404).json({ message: "Usuario no encontrado" });
-      }
-    } catch (error) {
-      console.error("Error en updateUser:", error);
-      res.status(500).json({ message: "Error interno del servidor" });
-    }
-  }
-  
-  module.exports = { getAllUsers, getUserById, createUser, updateUser };
+  module.exports = { getAllUsers, createUser };

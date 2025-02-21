@@ -1,10 +1,18 @@
 
 export interface User{
-    idUsuario: number
-    username: string
-    idRol: number
+  idUsuario: number
+  username: string
+  password: string
+  idRol: number
+  activo: boolean
 }
 
+export interface UserGet{
+id: number
+Nombre: string
+Rol: number
+activo: boolean
+}
 export class Membresia {
     id: number | null;
     idKeko: number;

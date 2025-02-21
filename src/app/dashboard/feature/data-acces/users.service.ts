@@ -18,9 +18,7 @@ export class UsersService {
       return this.http.get<User[]>(`${this.apiUrl}/usuarios`);
     }
   
-    // Método para obtener un usuario por su ID
-    getUserById(idUsuario: number): Observable<User> {
-      const url = `${this.apiUrl}/${idUsuario}`;
-      return this.http.get<User>(url);
+    createUser(user: User): Observable<User> {
+      return this.http.post<User>(`${this.apiUrl}/usuarios`, user);  // Hacemos un POST a la ruta de crear usuario
     }
 }

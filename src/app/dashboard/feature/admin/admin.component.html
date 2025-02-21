@@ -1,0 +1,66 @@
+<!-- Formulario para Crear/Editar Usuario -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{{ user.idUsuario === 0 ? 'Crear Usuario' : 'Editar Usuario' }}</h2>
+    
+    <form (ngSubmit)="onSubmit()" class="border p-4 rounded shadow-sm bg-light">
+      <div class="form-group mb-3">
+        <label for="username" class="form-label">Nombre de Usuario</label>
+        <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control" required>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="user.password" name="password" class="form-control" >
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="idRol" class="form-label">Rol</label>
+        <select id="idRol" [(ngModel)]="user.idRol" name="idRol" class="form-select" required>
+          <option value="1">Administrador</option>
+          <option value="2">Nobleza</option>
+          <!-- Agrega otros roles según sea necesario -->
+        </select>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="activo" class="form-label">Activo</label>
+        <input type="checkbox" id="activo" [(ngModel)]="user.activo" name="activo" class="form-check-input">
+      </div>
+  
+      <button [disabled]="isVisitor()" type="submit" class="btn btn-primary w-100">Guardar Usuario</button>
+    </form>
+  </div>
+  
+  <hr>
+  
+  <!-- Tabla de Usuarios -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Lista de Usuarios</h2>
+    
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nombre de Usuario</th>
+          <th>Rol</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.idUsuario }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.idRol === 1 ? 'Administrador' : 'Nobleza' }}</td>
+          <td>{{ user.activo ? 'Sí' : 'No' }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="editUser(user)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
+  
+

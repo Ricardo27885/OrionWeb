@@ -39,7 +39,8 @@ async function createTime(req, res) {
     // Obtener todos los tiempos de hoy
     async function getAll(req, res) {
       try {
-        const tiempos = await getAllTiempos();
+        const { idUsuario } = req.params;
+        const tiempos = await getAllTiempos(idUsuario);
         res.status(200).json(tiempos);
       } catch (error) {
         res.status(500).json({ message: "Error al obtener los tiempos", error });
