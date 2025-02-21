@@ -1,68 +1,70 @@
 <div class="mt-4 m-3">
-    <mat-tab-group>
-        <mat-tab label="Tomar Time"> 
-          <div class="container mt-5">
-            <h2>Agregar Time</h2>
-            <form (submit)="guardarDatos()">
-              <div class="mb-3">
+  <mat-tab-group>
+      <mat-tab label="First"> 
+        <div class="container mt-5">
+          <h2>Formulario de Entrada</h2>
+          <form (submit)="guardarDatos()">
+            <div class="mb-3">
 
-                <input 
-                type="text" 
-                class="form-control" 
-                [(ngModel)]="searchTerm" 
-                [ngModelOptions]="{standalone: true}"
-                (input)="getFilteredKekos()"
-                placeholder="Buscar Kekos..."
-              />
-              <div class="dropdown" *ngIf="filteredKekos.length">
-                <ul class="list-group position-absolute w-100">
-                  <li 
-                    *ngFor="let keko of filteredKekos" 
-                    class="list-group-item list-group-item-action"
-                    (click)="selectKeko(keko)"
-                  >
-                    {{ keko.Nombre }}
-                  </li>
-                </ul>
+              <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="searchTerm" 
+              [ngModelOptions]="{standalone: true}"
+              (input)="getFilteredKekos()"
+              placeholder="Buscar Kekos..."
+            />
+            <div class="dropdown" *ngIf="filteredKekos.length">
+              <ul class="list-group position-absolute w-100">
+                <li 
+                  *ngFor="let keko of filteredKekos" 
+                  class="list-group-item list-group-item-action"
+                  (click)="selectKeko(keko)"
+                >
+                  {{ keko.Nombre }}
+                </li>
+              </ul>
+            </div>
+              
+            </div>
+            <div class="mb-3">
+              <label for="input2" class="form-label">Admin</label>
+              <input type="text" 
+              class="form-control" 
+              id="input2" 
+              placeholder="Nombre de usuario"
+              [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="username"
+              disabled>
+            </div>
+            <div class="mb-3">
+              <label for="input3" class="form-label">Hora</label>
+              <input type="time" class="form-control" id="input3" [(ngModel)]="currentDateTime" [ngModelOptions]="{standalone: true}" [disabled]="true">
               </div>
-                
-              </div>
-              <div class="mb-3">
-                <label for="input2" class="form-label">Admin</label>
-                <input type="text" 
-                class="form-control" 
-                id="input2" 
-                placeholder="Nombre de usuario"
-                [ngModelOptions]="{standalone: true}"
-                [(ngModel)]="username"
-                disabled>
-              </div>
-              <div class="mb-3">
-                <label for="input3" class="form-label">Hora</label>
-                <input type="time" class="form-control" id="input3" [(ngModel)]="currentDateTime" [ngModelOptions]="{standalone: true}" [disabled]="true">
-                </div>
-              <button [disabled]="isVisitor()" type="submit" class="btn btn-primary">Guardar</button>
-            </form>
-          </div>
-        </mat-tab>
-        <mat-tab label="Times"> 
-          <div class="container mt-4">
-            <div class="d-flex">
-              <div class="col-6">
-                <div class="container mt-4">
-                  <h2 class="text-center">Mis Tiempos</h2>
-          
-                  <div *ngFor="let tiempoId of tiemposbyId" class="card mb-2">
-                    <div class="card-header d-flex align-items-center">
-                      <button class="btn btn-primary btn-circle me-3" (click)="toggleDetalles(tiempoId.IDCabecera, 'otro')">
-                        <i class="fas" [ngClass]="{'fa-plus': !detallesVisiblesOtro[tiempoId.IDCabecera], 'fa-minus': detallesVisiblesOtro[tiempoId.IDCabecera]}"></i>
-                      </button>
-                      <h5 class="mb-0">{{ tiempoId.NombreKeko }} - {{ tiempoId.NombreUsuario }}</h5>
-                      <span class="ms-auto badge bg-success" *ngIf="tiempoId.Activo">Activo</span>
-                      <span class="ms-auto badge bg-danger" *ngIf="!tiempoId.Activo">Inactivo</span>
-                    </div>
-          
-                    <div *ngIf="detallesVisiblesOtro[tiempoId.IDCabecera]" class="card-body">
+            <button [disabled]="isVisitor()" type="submit" class="btn btn-primary">Guardar</button>
+          </form>
+        </div>
+      </mat-tab>
+      <mat-tab label="Times"> 
+        <div class="container mt-4">
+          <!-- Contenedor flexible: en móvil en columna, en PC en fila -->
+          <div class="d-flex flex-column flex-lg-row">
+            
+            <!-- Sección "Mis Tiempos" -->
+            <div class="col-12 col-lg-6">
+              <div class="container mt-4">
+                <h2 class="text-center">Mis Tiempos</h2>
+                <div *ngFor="let tiempoId of tiemposbyId" class="card mb-2">
+                  <div class="card-header d-flex align-items-center">
+                    <button class="btn btn-primary btn-circle me-3" (click)="toggleDetalles(tiempoId.IDCabecera, 'otro')">
+                      <i class="fas" [ngClass]="{'fa-plus': !detallesVisiblesOtro[tiempoId.IDCabecera], 'fa-minus': detallesVisiblesOtro[tiempoId.IDCabecera]}"></i>
+                    </button>
+                    <h5 class="mb-0">{{ tiempoId.NombreKeko }} - {{ tiempoId.NombreUsuario }}</h5>
+                    <span class="ms-auto badge bg-success" *ngIf="tiempoId.Activo">Activo</span>
+                    <span class="ms-auto badge bg-danger" *ngIf="!tiempoId.Activo">Inactivo</span>
+                  </div>
+                  <div *ngIf="detallesVisiblesOtro[tiempoId.IDCabecera]" class="card-body">
+                    <div class="table-responsive">
                       <table class="table table-bordered">
                         <thead class="table-dark">
                           <tr>
@@ -80,19 +82,13 @@
                             <td>{{ detalleId.HoraFin | date:'hh:mm a':'UTC'  }}</td>
                             <td>{{ detalleId.EstadoTiempo }}</td>
                             <td>
-                              <button class="btn btn-success" 
-                                      (click)="startDetail(tiempoId.IDCabecera, i)" 
-                                      [disabled]="areButtonsDisabled(detalleId).startDisabled">
+                              <button class="btn btn-success" (click)="startDetail(tiempoId.IDCabecera, i)" [disabled]="areButtonsDisabled(detalleId).startDisabled">
                                 Iniciar
                               </button>
-                              <button class="btn btn-warning" 
-                                      (click)="cancelDetail(tiempoId.IDCabecera, i)" 
-                                      [disabled]="areButtonsDisabled(detalleId).cancelDisabled">
+                              <button class="btn btn-warning" (click)="cancelDetail(tiempoId.IDCabecera, i)" [disabled]="areButtonsDisabled(detalleId).cancelDisabled">
                                 Cancelar
                               </button>
-                              <button class="btn btn-danger" 
-                                      (click)="finishDetail(tiempoId.IDCabecera, i)" 
-                                      [disabled]="areButtonsDisabled(detalleId).finishDisabled">
+                              <button class="btn btn-danger" (click)="finishDetail(tiempoId.IDCabecera, i)" [disabled]="areButtonsDisabled(detalleId).finishDisabled">
                                 Finalizar
                               </button>
                               <button class="btn btn-info" (click)="updateTimes(tiempoId.IDCabecera, detalleId.IDDetalle)" [disabled]="areButtonsDisabled(detalleId).newButtonDisabled">
@@ -102,32 +98,34 @@
                           </tr>
                         </tbody>
                       </table>
-                      <div *ngIf="tiempoId.Detalles.length < 3">
-                        <button class="btn btn-primary" (click)="addDetail(tiempoId.IDCabecera)">Agregar Detalle</button>
-                      </div>
-                      <div *ngIf="tiempoId.Detalles.length > 1">
-                        <button class="btn btn-danger" (click)="removeDetail(tiempoId.IDCabecera, tiempoId.Detalles.length - 1)">Quitar Detalle</button>
-                      </div>
+                    </div>
+                    <div *ngIf="tiempoId.Detalles.length < 3">
+                      <button class="btn btn-primary" (click)="addDetail(tiempoId.IDCabecera)">Agregar Detalle</button>
+                    </div>
+                    <div *ngIf="tiempoId.Detalles.length > 1">
+                      <button class="btn btn-danger" (click)="removeDetail(tiempoId.IDCabecera, tiempoId.Detalles.length - 1)">Quitar Detalle</button>
                     </div>
                   </div>
                 </div>
               </div>
-          
-              <div class="col-6">
-                <div class="container mt-4">
-                  <h2 class="text-center">Tiempos de otros</h2>
-          
-                  <div *ngFor="let tiempo of tiempos" class="card mb-2">
-                    <div class="card-header d-flex align-items-center">
-                      <button class="btn btn-primary btn-circle me-3" (click)="toggleDetalles(tiempo.IDCabecera, 'hoy')">
-                        <i class="fas" [ngClass]="{'fa-plus': !detallesVisibles[tiempo.IDCabecera], 'fa-minus': detallesVisibles[tiempo.IDCabecera]}"></i>
-                      </button>
-                      <h5 class="mb-0">{{ tiempo.NombreKeko }} - {{ tiempo.NombreUsuario }}</h5>
-                      <span class="ms-auto badge bg-success" *ngIf="tiempo.Activo">Activo</span>
-                      <span class="ms-auto badge bg-danger" *ngIf="!tiempo.Activo">Inactivo</span>
-                    </div>
-          
-                    <div *ngIf="detallesVisibles[tiempo.IDCabecera]" class="card-body">
+            </div>
+      
+            <!-- Sección "Tiempos de otros" -->
+            <div class="col-12 col-lg-6">
+              <div class="container mt-4">
+                <h2 class="text-center">Tiempos de otros</h2>
+                <div *ngFor="let tiempo of tiempos" class="card mb-2">
+                  <div class="card-header d-flex align-items-center">
+                    <button class="btn btn-primary btn-circle me-3" (click)="toggleDetalles(tiempo.IDCabecera, 'hoy')">
+                      <i class="fas" [ngClass]="{'fa-plus': !detallesVisibles[tiempo.IDCabecera], 'fa-minus': detallesVisibles[tiempo.IDCabecera]}"></i>
+                    </button>
+                    <h5 class="mb-0">{{ tiempo.NombreKeko }} - {{ tiempo.NombreUsuario }}</h5>
+                    <span class="ms-auto badge bg-success" *ngIf="tiempo.Activo">Membresía</span>
+                    <span class="ms-auto badge bg-danger" *ngIf="!tiempo.Activo">Membresía</span>
+                  </div>
+      
+                  <div *ngIf="detallesVisibles[tiempo.IDCabecera]" class="card-body">
+                    <div class="table-responsive">
                       <table class="table table-bordered">
                         <thead class="table-dark">
                           <tr>
@@ -140,99 +138,100 @@
                         <tbody>
                           <tr *ngFor="let detalle of tiempo.Detalles">
                             <td>{{ detalle.Descripcion }}</td>
-                            <td>{{ detalle.HoraInicio | date:'hh:mm a':'UTC'  }}</td>
-                            <td>{{ detalle.HoraFin  | date:'hh:mm a':'UTC'   }}</td>
+                            <td>{{ detalle.HoraInicio | date:'hh:mm a':'UTC' }}</td>
+                            <td>{{ detalle.HoraFin | date:'hh:mm a':'UTC' }}</td>
                             <td>{{ detalle.EstadoTiempo }}</td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
-                  </div>
+                  </div>                    
                 </div>
               </div>
             </div>
+      
           </div>
-          
-        </mat-tab>
-        <mat-tab label="Membresías"> 
-       
-          <div class="container mt-4">
-            <!-- Tabla de Membresías -->
-            <table class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Keko Nombre</th>
-                  <th>Tipo</th>
-                  <th>Fecha Inicio</th>
-                  <th>Fecha Fin</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let membresia of membresias">
-                  <td>{{ membresia.id }}</td>
-                  <td>{{ membresia.Nombre }}</td>
-                  <td>{{ membresia.tipo }}</td>
-                  <td>{{ membresia.fecha_inicio | date: 'yyyy-MM-dd':'UTC' }}</td>
-                  <td>{{ membresia.fecha_fin | date: 'yyyy-MM-dd':'UTC' }}</td>
-                  <td>
-                    <button [disabled]="isVisitor()" class="btn btn-warning" (click)="onEdit(membresia)">Editar</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          
-            <!-- Formulario de Guardar/Editar -->
-            <div class="mt-4">
-              <form (ngSubmit)="onSave()">
-                <div class="form-group mb-3">
-                  <label for="keko">Seleccionar Keko:</label>
-                  <select 
-                    [(ngModel)]="selectedMembresia.idKeko" 
-                    name="keko" 
-                    class="form-control" 
-                    required>
-                    <option *ngFor="let keko of kekos" [value]="keko.idKeko">{{ keko.Nombre }}</option>
-                  </select>
-                </div>
-          
-                <div class="form-group mb-3">
-                  <label for="tipo">Tipo:</label>
-                  <input 
-                    type="text" 
-                    [(ngModel)]="selectedMembresia.tipo" 
-                    name="tipo" 
-                    class="form-control" 
-                    required />
-                </div>
-          
-                <div class="form-group mb-3">
-                  <label for="fecha_inicio">Fecha de Inicio:</label>
-                  <input 
-                    type="date" 
-                    [(ngModel)]="selectedMembresia.fecha_inicio" 
-                    name="fecha_inicio" 
-                    class="form-control" 
-                    required 
-                    [value]="selectedMembresia.fecha_inicio | date: 'yyyy-MM-dd'" />
-                </div>
-          
-                <button [disabled]="isVisitor()" type="submit" class="btn btn-primary">Guardar</button>
-              </form>
-            </div>
+        </div>
+      </mat-tab>
+      
+      <mat-tab label="Third"> 
+     
+        <div class="container mt-4">
+          <!-- Tabla de Membresías -->
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Keko Nombre</th>
+                <th>Tipo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let membresia of membresias">
+                <td>{{ membresia.id }}</td>
+                <td>{{ membresia.Nombre }}</td>
+                <td>{{ membresia.tipo }}</td>
+                <td>{{ membresia.fecha_inicio | date: 'yyyy-MM-dd':'UTC' }}</td>
+                <td>{{ membresia.fecha_fin | date: 'yyyy-MM-dd':'UTC' }}</td>
+                <td>
+                  <button [disabled]="isVisitor()" class="btn btn-warning" (click)="onEdit(membresia)">Editar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        
+          <!-- Formulario de Guardar/Editar -->
+          <div class="mt-4">
+            <form (ngSubmit)="onSave()">
+              <div class="form-group mb-3">
+                <label for="keko">Seleccionar Keko:</label>
+                <select 
+                  [(ngModel)]="selectedMembresia.idKeko" 
+                  name="keko" 
+                  class="form-control" 
+                  required>
+                  <option *ngFor="let keko of kekos" [value]="keko.idKeko">{{ keko.Nombre }}</option>
+                </select>
+              </div>
+        
+              <div class="form-group mb-3">
+                <label for="tipo">Tipo:</label>
+                <input 
+                  type="text" 
+                  [(ngModel)]="selectedMembresia.tipo" 
+                  name="tipo" 
+                  class="form-control" 
+                  required />
+              </div>
+        
+              <div class="form-group mb-3">
+                <label for="fecha_inicio">Fecha de Inicio:</label>
+                <input 
+                  type="date" 
+                  [(ngModel)]="selectedMembresia.fecha_inicio" 
+                  name="fecha_inicio" 
+                  class="form-control" 
+                  required 
+                  [value]="selectedMembresia.fecha_inicio | date: 'yyyy-MM-dd'" />
+              </div>
+        
+              <button [disabled]="isVisitor()" type="submit" class="btn btn-primary">Guardar</button>
+            </form>
           </div>
-          
+        </div>
+        
 
-         </mat-tab>
+       </mat-tab>
 
-       
-      </mat-tab-group>
+     
+    </mat-tab-group>
 </div>
 
 
-  
 
 
-  
-  
+
+
