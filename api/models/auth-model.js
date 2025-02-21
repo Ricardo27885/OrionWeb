@@ -73,11 +73,11 @@ async function loginUser(username, password) {
       }
   
       // Comparar la contraseña ingresada con la almacenada en la BD
-      // const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
       
-      // if (!isMatch) {
-      //   throw new Error("Contraseña incorrecta");
-      // }
+      if (!isMatch) {
+      throw new Error("Contraseña incorrecta");
+     }
   
       const payload = {
         idUsuario: user.idUsuario,
