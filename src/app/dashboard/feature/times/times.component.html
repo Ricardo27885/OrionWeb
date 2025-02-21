@@ -1,8 +1,8 @@
 <div class="mt-4 m-3">
   <mat-tab-group>
-      <mat-tab label="First"> 
+      <mat-tab label="Take Time"> 
         <div class="container mt-5">
-          <h2>Formulario de Entrada</h2>
+          <h2>Add Time</h2>
           <form (submit)="guardarDatos()">
             <div class="mb-3">
 
@@ -154,35 +154,37 @@
         </div>
       </mat-tab>
       
-      <mat-tab label="Third"> 
+      <mat-tab label="Membresías"> 
      
         <div class="container mt-4">
           <!-- Tabla de Membresías -->
-          <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Keko Nombre</th>
-                <th>Tipo</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let membresia of membresias">
-                <td>{{ membresia.id }}</td>
-                <td>{{ membresia.Nombre }}</td>
-                <td>{{ membresia.tipo }}</td>
-                <td>{{ membresia.fecha_inicio | date: 'yyyy-MM-dd':'UTC' }}</td>
-                <td>{{ membresia.fecha_fin | date: 'yyyy-MM-dd':'UTC' }}</td>
-                <td>
-                  <button [disabled]="isVisitor()" class="btn btn-warning" (click)="onEdit(membresia)">Editar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Keko Nombre</th>
+                  <th>Tipo</th>
+                  <th>Fecha Inicio</th>
+                  <th>Fecha Fin</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let membresia of membresias">
+                  <td>{{ membresia.id }}</td>
+                  <td>{{ membresia.Nombre }}</td>
+                  <td>{{ membresia.tipo }}</td>
+                  <td>{{ membresia.fecha_inicio | date: 'yyyy-MM-dd':'UTC' }}</td>
+                  <td>{{ membresia.fecha_fin | date: 'yyyy-MM-dd':'UTC' }}</td>
+                  <td>
+                    <button [disabled]="isVisitor()" class="btn btn-warning" (click)="onEdit(membresia)">Editar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <!-- Formulario de Guardar/Editar -->
           <div class="mt-4">
             <form (ngSubmit)="onSave()">
